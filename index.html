@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<style>
+  .ball {
+    /*두 줄을 하나로 묶어*/
+    display: inline-block;
+    width: 10rem;
+    height: 10rem;
+    margin: 1rem;
+    background-color: yellowgreen;
+    border-radius: 50%;
+    /* 컨텐츠 중앙, 수직 정렬 */
+    text-align: center;
+    line-height: 10rem;
+    /* 폰트 정리 */
+    font-size: xx-large;
+    font-weight:bold;
+  }
+    .ball-container {
+      display: flex;
+    }
+
+  
+</style>
+<body>
+
+  <h1>로또 추천 번호</h1>
+  <button id="lotto-btn">행운 번호 받기</button>
+  <div id="result"></div>
+  <hr>
+
+<script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+<script>
+  const button = document. querySelector('#lotto-btn')
+  button.addEventListener('click', function() {
+    console.log('번호 추첨')
+    // 컨테이너를 만들고
+    const ballContainer = document.createElement('div')
+    ballContainer.classList.add('ball-container')
+    //공을 만들어서 => 6개를 만들어서
+    const numbers = _.sampleSize(_.range(1, 46), 6)
+    console.log(numbers.sort(function(a, b) {return a - b}))
+    const ball = document.createElement('div')
+    ball.classList.add('ball')
+    // 반복문을 돌려서 6개까지 출력한다.
+    for (num of numbers) {
+      const ball = document.createElement('div')
+      ball.classList.add('ball')
+      ball.innerText = num
+      // 색깔 입히기
+      if (num <= 10) {
+          ball.style.backgroundColor = 'yellow' ;
+        } else if (num <= 20) {
+          ball.style.backgroundColor = 'blue';
+        } else if (num <= 30) {
+          ball.style.backgroundColor = 'red';
+        } else if (num <= 40) {
+          ball.style.backgroundColor = 'gray';
+        } else if (num <= 45) {
+          ball.style.backgroundColor = "green";
+        }
+        ballContainer.appendChild(ball)
+      // 컨테이너를 결과 영역에 붙인다.
+      const result = document.querySelector("#result")
+      result.appendChild(ballContainer)
+      }
+    })
+    
+
+</script>
+</body>
+</html>
